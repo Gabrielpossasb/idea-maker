@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,7 +38,7 @@ export default function PassRecup() {
                   >
                      Confirmar
                   </button>
-                  <a href="/" className="self-center underline hover:text-orange-400 duration-300">Voltar</a>
+                  <Link href="/" className="self-center underline hover:text-orange-400 duration-300">Voltar</Link>
                </div>
             </div>
          </div>

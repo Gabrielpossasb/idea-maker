@@ -2,6 +2,7 @@ import { InputCustom } from "../components/Input";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 export function Dashboard() {
    const users = [ 
@@ -66,7 +67,7 @@ export function Dashboard() {
                >
                   Entrar
                </button>
-               <a href="/passRecup" className="self-center text-sm underline hover:text-orange-400 duration-300">Esqueci minha senha</a>
+               <Link href="/passRecup" className="self-center text-sm underline hover:text-orange-400 duration-300">Esqueci minha senha</Link>
             </div>
          </div>
       </div>
