@@ -67,7 +67,11 @@ export function Dashboard() {
                >
                   Entrar
                </button>
-               <Link href="/passRecup" className="self-center text-sm underline hover:text-orange-400 duration-300">Esqueci minha senha</Link>
+               
+               <button onClick={ () => push('/passRecup')} className="self-center text-sm underline hover:text-orange-400 duration-300">
+                  Esqueci minha senha
+               </button>
+               
             </div>
          </div>
       </div>

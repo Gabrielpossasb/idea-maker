@@ -38,7 +38,7 @@ export default function PassRecup() {
                   >
                      Confirmar
                   </button>
-                  <Link href="/" className="self-center underline hover:text-orange-400 duration-300">Voltar</Link>
+                  <button onClick={() => push('/')} className="self-center underline hover:text-orange-400 duration-300">Voltar</button>
                </div>
             </div>
          </div>
