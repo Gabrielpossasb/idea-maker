@@ -1,43 +1,23 @@
-import { InputCustom } from "../components/Input";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
-import Link from "next/link";
+import Router from "next/router";
+import { useContext, useState } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
 export function Dashboard() {
-   const users = [ 
-      {
-         email:'gabrielpossas17@gmail.com', 
-         password: '123123'
-      },
-      {
-         email:'gabrielpossas22@gmail.com', 
-         password: '456456'
-      },
-   ];
-
    const { formState:{isSubmitting}, handleSubmit, register } = useForm()
+
+   const { signIn } = useContext(AuthContext)
 
    const [ email, setEmail ] = useState('')
    const [ password, setPassword ] = useState('')
 
-   const { push } = useRouter()
-
-   function onSubmit() {
-      const login = {email, password}
-
-      const loginVerifided = users.filter( data => {
-         return (login.email === data.email && login.password === data.password)
-      })
-      console.log(loginVerifided[0])
-
-      { !loginVerifided[0] ? (
-            alert('login invalido')
-         ): (
-            push('/dashboard')
-         ) 
-      }
-
+    async function onSubmit() {
+      const data = {
+         email,
+         password,
+       }
+   
+       await signIn(data);
    }
 
    return(
@@ -68,7 +48,7 @@ export function Dashboard() {
                   Entrar
                </button>
                
-               <button onClick={ () => push('/passRecup')} className="self-center text-sm underline hover:text-orange-400 duration-300">
+               <button onClick={ () => Router.push('/passRecup')} className="self-center text-sm underline hover:text-orange-400 duration-300">
                   Esqueci minha senha
                </button>
                
