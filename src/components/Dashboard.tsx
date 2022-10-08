@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Router from "next/router";
 import { useContext, useState } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { GetServerSideProps } from "next";
 
 export function Dashboard() {
    const { formState:{isSubmitting}, handleSubmit, register } = useForm()
@@ -56,4 +57,12 @@ export function Dashboard() {
          </div>
       </div>
    )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+   console.log(ctx.req.cookies);
+
+   return {
+      props: {}
+   }
 }
