@@ -16,9 +16,7 @@ export default function PassRecup() {
    const forgotPassword = (email: string, e: FormEvent) => {
       e.preventDefault()
       try {
-         sendPasswordResetEmail(auth, email, {
-            url:'http://idea-maker.vercel.app/'
-         });
+         sendPasswordResetEmail(auth, email);
          console.log(email)
          push('/')
       } catch (error) {
