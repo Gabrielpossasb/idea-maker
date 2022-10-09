@@ -17,7 +17,7 @@ export default function RecuperationPass() {
 
    function resetPassword(e: FormEvent) {
       e.preventDefault()
-      const code: string = query.oobCOde as string;
+      const code = query.oobCode as string;
       console.log(code)
       if (password === passwordConfirmation) {
          try {
