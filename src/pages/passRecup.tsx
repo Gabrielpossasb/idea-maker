@@ -20,7 +20,7 @@ export default function PassRecup() {
          console.log(email)
          push('/')
       } catch (error) {
-         console.log(error?.mensage)
+         console.log(error)
       }
 
    }
