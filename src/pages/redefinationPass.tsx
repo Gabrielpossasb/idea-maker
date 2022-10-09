@@ -17,11 +17,16 @@ export default function RecuperationPass() {
 
    function resetPassword(e: FormEvent) {
       e.preventDefault()
-      const code: string = query.oobCode;
+      const code: string = query.oobCOde !== undefined ? query.oobCode! : '';
       console.log(code)
       if (password === passwordConfirmation) {
-         confirmPasswordReset(auth, code, password)
-         console.log('senha alteada')
+         try {
+            confirmPasswordReset(auth, code, password)
+            console.log('senha alteada')
+            push('/')
+         } catch (err) {
+            alert('Desculpe! Ocorreu um erro inesperado. Tente novamente')
+         }
       } else {
          alert('As senhas são diferentes')
       }
