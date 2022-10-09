@@ -13,11 +13,11 @@ export default function PassRecup() {
 
    const [ email, setEmail ] = useState('')
 
-   const forgotPassword = (email: string) => {
-      
+   const forgotPassword = (email: string, e: FormEvent) => {
+      e.preventDefault()
       try {
          sendPasswordResetEmail(auth, email, {
-            url:'https://idea-maker.vercel.app/'
+            url:'http://idea-maker.vercel.app/'
          });
          console.log(email)
          push('/')
@@ -37,7 +37,7 @@ export default function PassRecup() {
                   <text className="text-center">Por favor, insira seu email que lhe enviaremos um link de recuperação</text>
                </div>
                
-               <form id="form-recuperation-pass" className="flex w-full gap-1 flex-col font-semibold">
+               <form onSubmit={(e) =>forgotPassword(email, e)} id="form-recuperation-pass" className="flex w-full gap-1 flex-col font-semibold">
                   Email:
                   <input type={'email'} {...register("email", { required: true, onChange:(event) => setEmail(event.target.value),})}
                      className={'outline-none p-1 pl-2 font-normal rounded-md shadow-orangelg'}
@@ -45,7 +45,7 @@ export default function PassRecup() {
                </form>
 
                <div className="flex flex-col w-[90%] gap-4 mt-4">
-                  <button onClick={() =>forgotPassword(email)} disabled={isSubmitting}
+                  <button type="submit" form="form-recuperation-pass" disabled={isSubmitting}
                      className="bg-orange-500 p-2 text-white font-semibold text-lg rounded-full hover:brightness-90 duration-300"
                   >
                      Confirmar
