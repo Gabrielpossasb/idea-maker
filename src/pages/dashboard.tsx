@@ -1,16 +1,23 @@
-import { useContext, useEffect } from "react";
+import { signOut } from "firebase/auth";
+import { useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header";
-import { AuthContext } from "../contexts/AuthContext";
-import { api } from "../services/api";
+import { UserContext } from "../contexts/getUser";
+import { auth } from "../services/firebase-config";
+
 
 export default function Dashboard() {
-   const { user } = useContext(AuthContext)
+   const { user, verifiedUser } = useContext(UserContext) 
 
-   useEffect(() => {
-      api.get('/me')
-         .then(response => console.log(response))
-         .catch(err => console.log(err))
+    useEffect( () => {
+      UserVerified();
    }, [])
+
+   async function UserVerified() {
+      await new Promise(resolve => setTimeout(resolve, 4000));
+      verifiedUser()
+   }
+
+   
 
    return(
       <div className='h-[100vh] flex flex-col'>
@@ -18,6 +25,7 @@ export default function Dashboard() {
          <h1>
             Hello {user?.email}
          </h1>
+         <button onClick={() =>signOut(auth)}>Logout</button>
       </div>
    )
 }

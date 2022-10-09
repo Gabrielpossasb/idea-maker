@@ -1,25 +1,31 @@
 import { useForm } from "react-hook-form";
 import Router from "next/router";
-import { useContext, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { FormEvent, useContext, useState } from "react";
 import { GetServerSideProps } from "next";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebase-config";
 
 export function Dashboard() {
    const { formState:{isSubmitting}, handleSubmit, register } = useForm()
 
-   const { signIn } = useContext(AuthContext)
 
    const [ email, setEmail ] = useState('')
    const [ password, setPassword ] = useState('')
 
-    async function onSubmit() {
-      const data = {
-         email,
-         password,
-       }
-   
-       await signIn(data);
-   }
+   const login = async (event: FormEvent) => {
+      event.preventDefault();
+      try {
+        const user = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        Router.push('/dashboard')
+  
+      } catch (error) {
+        alert('Email ou Senha inválidos');
+      }
+    };
 
    return(
       <div className=" flex items-center justify-center h-full w-ful">
@@ -29,7 +35,7 @@ export function Dashboard() {
                <text>Bem-vindo! Insira seus dados.</text>
             </div>
             
-            <form onSubmit={handleSubmit(onSubmit)} id="form-login"  className={'w-full flex flex-col gap-8'}>
+            <form onSubmit={login} id="form-login"  className={'w-full flex flex-col gap-8'}>
                <div className="flex w-full gap-1 flex-col font-semibold">
                   Email:
                   <input type={'email'} {...register("email", { required: true, onChange:(event) => setEmail(event.target.value),})} 

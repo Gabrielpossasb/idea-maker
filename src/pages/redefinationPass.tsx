@@ -1,19 +1,30 @@
+import { confirmPasswordReset } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Header } from "../components/Header";
+import { auth } from "../services/firebase-config";
 
 export default function RecuperationPass() {
    const { formState:{isSubmitting}, handleSubmit, register } = useForm()
 
-   const { push } = useRouter()
+   const { push, query } = useRouter()
 
    const [ password, setPassword ] = useState('')
    const [ passwordConfirmation, setPasswordConfirmation ] = useState('')
 
-   function onSubmit() {
-      push('/')
+
+   function resetPassword(e: FormEvent) {
+      e.preventDefault()
+      const code: string = query.oobCode;
+      console.log(code)
+      if (password === passwordConfirmation) {
+         confirmPasswordReset(auth, code, password)
+         console.log('senha alteada')
+      } else {
+         alert('As senhas são diferentes')
+      }
    }
 
    return (
@@ -26,7 +37,7 @@ export default function RecuperationPass() {
                   <text className="text-center">Por favor, insira abaixo uma nova senha e confirme-a em seguida.</text>
                </div>
                
-               <form onSubmit={handleSubmit(onSubmit)}  id="form-recuperation-pass" className="flex w-full gap-2 flex-col font-semibold">
+               <form onSubmit={(e) => resetPassword(e)}  id="form-recuperation-pass" className="flex w-full gap-2 flex-col font-semibold">
                   Senha:
                   <input type={'password'} {...register("password", { required: true, onChange:(event) => setPassword(event.target.value),})} className={'outline-none p-1 pl-2 font-normal rounded-md shadow-orangelg'}/>
                      <div className="ml-6 mb-4 font-normal text-[14px] flex-col flex gap-2 text-[#838282]">
