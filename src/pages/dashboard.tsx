@@ -25,7 +25,7 @@ export default function Dashboard() {
          <h1>
             Hello {user?.email}
          </h1>
-         <button onClick={() =>signOut(auth)}>Logout</button>
+         
       </div>
    )
 }
