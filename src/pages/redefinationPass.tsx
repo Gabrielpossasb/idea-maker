@@ -22,7 +22,7 @@ export default function RecuperationPass() {
       if (password === passwordConfirmation) {
          try {
             confirmPasswordReset(auth, code, password)
-            console.log('senha alteada')
+            console.log('senha alterada')
             push('/')
          } catch (err) {
             alert('Desculpe! Ocorreu um erro inesperado. Tente novamente')
