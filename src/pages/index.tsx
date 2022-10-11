@@ -6,7 +6,9 @@ const Home: NextPage = () => {
   return (
     <div className='h-[100vh] flex flex-col'>
       <Header/>
-      <Dashboard/>
+      <div>
+        
+      </div>
     </div>
   )
 }
