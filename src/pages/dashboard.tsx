@@ -26,7 +26,7 @@ export default function Dashboard() {
    async function handleGetData() {
       const querySnapshot = await getDoc(doc(db, "user-data", '4PaqW5hKnzTvjs6wP14j'));
       
-      console.log(querySnapshot._document.data.value.mapValue.fields);
+      console.log(querySnapshot.get());
    }
 
    async function handleSendData() {

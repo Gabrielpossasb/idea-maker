@@ -4,14 +4,14 @@ import { Header } from "../components/Header";
 import { db } from "../services/firebase-config";
 
 interface dataType {
-   email: {stringValue: string},
-   docTitle: { stringValue: string},
-   docDescription1: { stringValue: string},
+   email:  string,
+   docTitle:  string,
+   docDescription1:  string,
 }
 
 export default function Project() {
 
-   const [ data, setData ] = useState<dataType>()
+   const [ data, setData ] = useState({} as dataType)
 
    useEffect(() => {
       handleGetData()
@@ -19,7 +19,8 @@ export default function Project() {
 
    async function handleGetData() {
       const querySnapshot = await getDoc(doc(db, "user-data", '4PaqW5hKnzTvjs6wP14j'));
-      const dataResponse: dataType = querySnapshot._document.data.value.mapValue.fields
+      const dataResponse = querySnapshot.data() as dataType
+      console.log(dataResponse)
       setData(dataResponse)
    }
 
@@ -29,9 +30,9 @@ export default function Project() {
          <div className="flex p-10 items-center flex-col gap-8">
             The project
 
-            <text className="p-4 text-center text-5xl outline-none rounded-lg border-2 border-gray-400">{data?.docTitle.stringValue}</text>
+            <text className="p-4 text-center text-5xl outline-none rounded-lg border-2 border-gray-400">{data.docTitle}</text>
             
-            <text className="text-center w-[800px]">{data?.docDescription1.stringValue}</text>
+            <text className="text-center w-[800px]">{data.docDescription1}</text>
 
          </div>
       </div>
