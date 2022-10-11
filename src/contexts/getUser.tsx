@@ -22,6 +22,7 @@ export const UserContext = createContext<UserContextData>({} as UserContextData)
 
 export function UserProvider({children}: UserProviderProps) {
    const [user, setUser] = useState({} as User | null);
+   const [userData, setUserData] = useState([])
 
    useEffect(() => {
       onAuthStateChanged(auth, currentUser => {
@@ -44,7 +45,7 @@ export function UserProvider({children}: UserProviderProps) {
             Router.push('/')
 
          } else {
-            console.log('logado')
+            
          }
       })
    }

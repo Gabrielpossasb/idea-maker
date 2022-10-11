@@ -12,12 +12,12 @@ export default function PassRecup() {
    const { push } = useRouter()
 
    const [ email, setEmail ] = useState('')
+   const [ loginError, setLoginError ] = useState(false)
 
    const forgotPassword = (email: string, e: FormEvent) => {
       e.preventDefault()
       try {
-         sendPasswordResetEmail(auth, email);
-         console.log(email)
+         sendPasswordResetEmail(auth, email)
          push('/')
       } catch (error) {
          console.log(error)

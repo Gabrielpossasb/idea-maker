@@ -15,14 +15,14 @@ export function Header() {
       <div className={`bg-orange-600 shadow-header flex items-center justify-between px-10 `}>
          <img className="" src="./Logo.svg" />
          { (asPath === '/dashboard') && (
-            <div className="bg-orange-300 flex rounded-full items-center justify-center gap-2 px-4 py-2 border-[#ff953f] border-4">
-               <div className="w-12 h-12 bg-cyan-400 items-center flex rounded-full justify-center text-white text-4xl font-medium">
+            <div className="bg-orange-300 flex rounded-full items-center justify-center gap-2 px-4 py-2 border-[#e7ac7c] border-2">
+               <div className="w-10 h-10 bg-cyan-400 items-center flex rounded-full justify-center text-white text-3xl font-medium">
                   {user?.email?.substring(0,1).toLocaleUpperCase()}
                </div>
                <text className="sm:flex hidden">{user?.email?.split('@')[0]}</text>
                <FiX color={'gray'} size={32} 
                   onClick={() =>signOut(auth)}
-                  className={'hover:bg-[#c48e59a2] rounded-full p-1'}   
+                  className={'hover:bg-[#c48e59a2] transition-colors duration-500 rounded-full p-1'}   
                />
             </div>
          )}
