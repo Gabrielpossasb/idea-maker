@@ -27,6 +27,7 @@ export default function Project() {
       <div className='h-[100vh] flex flex-col'>
          <Header/>
          <div className="flex p-10 items-center flex-col gap-8">
+            The project
 
             <text className="p-4 text-center text-5xl outline-none rounded-lg border-2 border-gray-400">{data?.docTitle.stringValue}</text>
             
