@@ -12,7 +12,6 @@ export default function PassRecup() {
    const { push } = useRouter()
 
    const [ email, setEmail ] = useState('')
-   const [ loginError, setLoginError ] = useState(false)
 
    const forgotPassword = (email: string, e: FormEvent) => {
       e.preventDefault()
@@ -22,7 +21,6 @@ export default function PassRecup() {
       } catch (error) {
          console.log(error)
       }
-
    }
 
    return (
@@ -32,7 +30,7 @@ export default function PassRecup() {
             <div className="flex items-center justify-center max-w-[350px] p-2 w-full flex-col rounded-lg gap-14">
                <div className="flex items-center justify-center flex-col text-sm">
                   <text className="font-bold text-gray-800 text-[26px] mb-3">Recuperação de senha</text>
-                  <text className="text-center">Por favor, insira seu email que lhe enviaremos um link de recuperação</text>
+                  <text className="text-center">Por favor, insira seu email que lhe enviaremos um link de recuperação.<br/><span className="opacity-50">(Verifique a caixa de spam)</span></text>
                </div>
                
                <form onSubmit={(e) =>forgotPassword(email, e)} id="form-recuperation-pass" className="flex w-full gap-1 flex-col font-semibold">

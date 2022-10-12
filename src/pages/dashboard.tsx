@@ -6,27 +6,34 @@ import { UserContext } from "../contexts/getUser";
 import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase-config";
 import { FiArrowRightCircle } from "react-icons/fi";
+import { dataType } from "./project";
 
 export default function Dashboard() {
    const { user, verifiedUser } = useContext(UserContext) 
+
+   const [ data, setData ] = useState({} as dataType)
 
    const [ docTitle, setDocTitle ] = useState('')
    const [ docDescription1, setDocDescription1 ] = useState('')
 
     useEffect( () => {
       UserVerified();
+      handleGetData();
+
    }, [])
 
    async function UserVerified() {
       await new Promise(resolve => setTimeout(resolve, 4000));
-      verifiedUser()
-      
+      verifiedUser()   
    }
 
    async function handleGetData() {
       const querySnapshot = await getDoc(doc(db, "user-data", '4PaqW5hKnzTvjs6wP14j'));
-      const dataResponse = querySnapshot.data()
+      const dataResponse = querySnapshot.data() as dataType
       console.log(dataResponse)
+      setData(dataResponse)
+      setDocDescription1(dataResponse.docDescription1)
+      setDocTitle(dataResponse.docTitle)
    }
 
    async function handleSendData() {

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { db } from "../services/firebase-config";
 
-interface dataType {
+export interface dataType {
    email:  string,
    docTitle:  string,
    docDescription1:  string,
