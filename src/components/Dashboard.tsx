@@ -53,9 +53,9 @@ export function Dashboard() {
                   className={'outline-none p-1 pl-2 font-normal rounded-md shadow-orangelg'}/>
                   <i  className="-mt-[32px] mr-2 self-end" >
                      { !visiblePass ? 
-                        <FiEyeOff className=" rounded-full" size={24} color="#666666" onClick={() => setVisiblePass(true)}/>
+                        <FiEyeOff className=" rounded-full" size={24} color="#aaaaaace" onClick={() => setVisiblePass(true)}/>
                         :
-                        <FiEye size={24} color="#686868" onClick={() => setVisiblePass(false)}/>
+                        <FiEye size={24} color="#616161" onClick={() => setVisiblePass(false)}/>
                      }
                   </i>
                </div>
