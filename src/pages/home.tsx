@@ -43,7 +43,7 @@ export default function Home() {
 
 
    async function handleGetData() {
-   const q = query(collection(db, "user-data"), where("email", "==" , `${user?.email}`));
+   const q = query(collection(db, "user-data"), where("email", "==" , `gabrielpossas17@gmail.com`));
 
       console.log(data)
       const querySnapshot = await getDocs(q);
