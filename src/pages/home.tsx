@@ -30,19 +30,21 @@ export default function Home() {
 
     useEffect( () => {
       UserVerified();
-      handleGetData();
 
    }, [])
 
    async function UserVerified() {
       await new Promise(resolve => setTimeout(resolve, 2000));
       verifiedUser()   
+      handleGetData();
+
 
    }
 
-   const q = query(collection(db, "user-data"), where("email", "==" , 'gabrielpossas17@gmail.com'));
 
    async function handleGetData() {
+   const q = query(collection(db, "user-data"), where("email", "==" , `${user?.email}`));
+
       console.log(data)
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) =>{

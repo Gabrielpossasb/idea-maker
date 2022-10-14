@@ -32,8 +32,6 @@ export default function Dashboard() {
       const dataResponse = querySnapshot.data() as dataType
       console.log(dataResponse)
       setData(dataResponse)
-      setDocDescription1(dataResponse.docDescription1)
-      setDocTitle(dataResponse.docTitle)
    }
 
    async function handleSendData() {
