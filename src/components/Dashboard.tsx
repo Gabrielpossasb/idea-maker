@@ -25,7 +25,7 @@ export function Dashboard() {
           email,
           password
         );
-        Router.push('/dashboard')
+        Router.push('/home')
   
       } catch (error) {
          setLoginError(true)

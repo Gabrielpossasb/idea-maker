@@ -6,7 +6,8 @@ import Router from 'next/router'
 
 export interface dataType {
    name: string,
-   title: string
+   title: string,
+   description: string
 }
 
 export default function Project() {

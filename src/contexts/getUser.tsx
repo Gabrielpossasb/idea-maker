@@ -13,51 +13,35 @@ type UserProviderProps = {
 }
 
 type UserContextData = {
-   getUser: ({}: User) => void;
-   user: User | null;
+   
+   user: string;
    verifiedUser: () => void;
-   setProject: (id: number) => void;
-   projectID: number
+   
 }
 
 export const UserContext = createContext<UserContextData>({} as UserContextData)
 
 export function UserProvider({children}: UserProviderProps) {
-   const [user, setUser] = useState({} as User | null);
-   const [userData, setUserData] = useState([])
+   const [user, setUser] = useState('');
+   
    const [ projectID, setProjectID ] = useState(0)
-
-   useEffect(() => {
-      onAuthStateChanged(auth, currentUser => {
-         const loginUser = {email:currentUser?.email, isVerified:currentUser?.emailVerified} as User
-        setUser(!!currentUser ? loginUser : null)
-         console.log(loginUser)
-      })
-      
-    }, [])
-
-   function getUser({email, isVerified}: User) {
-      setUser({email, isVerified})
-   }
 
    async function verifiedUser() {
       onAuthStateChanged(auth, currentUser => {
          if (currentUser?.email === undefined) {
             console.log('deslogado')
             Router.push('/')
-
          } else {
-            
+            console.log(currentUser.email!)
+            setUser(currentUser.email!)
          }
       })
    }
 
-   function setProject(number: number) {
-      setProjectID(number)
-   }
+   
 
    return (
-      <UserContext.Provider value={{ user, getUser, verifiedUser, setProject, projectID }}>
+      <UserContext.Provider value={{ user, verifiedUser  }}>
          {children}
       </UserContext.Provider>
    );

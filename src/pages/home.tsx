@@ -9,52 +9,66 @@ import Link from "next/link";
 
 interface User {
    id:  string,
-   user: {
-      email:  string,
-      projects: [
+   user:  string,
+   
+   projects :[
          {
             name: string,
             title: string,
          },
-      ]
-   }
+   ]
       
    
+}
+export interface UserProject {
+   name: string,
+   title:  string,
 }
 
 export default function Home() {
    const { user, verifiedUser } = useContext(UserContext) 
 
-   const [ data, setData ] = useState<User>()
+   const [ data, setData ] = useState<User>({} as User)
    const [ open, setOpen ] = useState(false)
 
     useEffect( () => {
       UserVerified();
-
+      console.log(user)
    }, [])
 
    async function UserVerified() {
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      verifiedUser()   
-      handleGetData();
-
-
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('foi1')
+      verifiedUser()  
+      console.log(user)
    }
 
 
    async function handleGetData() {
-   const q = query(collection(db, "user-data"), where("email", "==" , `gabrielpossas17@gmail.com`));
+      if (user != '') {
+      const q = query(collection(db, "user-data"), where("email", "==" , user));
 
-      console.log(data)
+      console.log(user)
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) =>{
-         setData({id:doc.id, user:doc.data() as any});
+         setData({...data, id:doc.id, user:doc.data().email as string});
       })
-      setOpen(true)
+
+      const qProjects = query(collection(db, "user-data", data.id, 'projects'));
+
+      console.log(data)
+      const querySnapshotProjects = await getDocs(qProjects);
+      querySnapshotProjects.forEach((doc) =>{
+         setData({...data, projects:[doc.data() as UserProject]});
+      })
+    } else {
+
+    }
    }
 
    function handleProject() {
-      console.log('fui')
+      handleGetData()
+      setOpen(!open)
    }
 
 
@@ -62,33 +76,38 @@ export default function Home() {
       <div className='h-[100vh] flex flex-col'>
          <Header/>
          <div className="p-10">
-            <button disabled={ (data === null) ? true : false} onClick={() =>setOpen(!open)} 
-               className={`flex items-center font-medium disabled:opacity-0 hover:shadow-orangeButton duration-700 gap-2 shadow-orangelg ease-in-out rounded-full px-6 text-2xl
-                  ${(open )?'shadow-orangeButton bg-orange-400 text-white py-1 px-8':''}
-               `}>
-               PROJETOS 
-               { open ? 
-                  <FiChevronRight className="rotate-90 transition-transform duration-200"/>
-                  : 
-                  <FiChevronRight className="transition-transform duration-200"/>
-               }
-            </button>
+            <div className="flex gap-4">
+              
+               <div className={`w-2 rounded-lg shadow-orangeButton duration-500
+                  ${open?' w-3 bg-orange-400 ':''}
+               `}/>
+               
+               <button disabled={ (data === null) ? true : false} onClick={() => handleProject()} 
+                  className={`flex items-center font-medium disabled:opacity-0 hover:shadow-orangeButton duration-700 gap-2 shadow-orangelg ease-in-out rounded-lg px-6 text-2xl
+                     ${(open )?'shadow-orangeButton bg-orange-400 text-white py-1 px-8':''}
+                  `}>
+                  PROJETOS 
+                  { open ? 
+                     <FiChevronRight className="rotate-90 transition-transform duration-200"/>
+                     : 
+                     <FiChevronRight className="transition-transform duration-200"/>
+                  }
+               </button>
+            </div>
             <div className={`flex flex-col p-10 text-lg gap-2 ${open?'opacity-100':'opacity-0'} delay-200 duration-1000`}>
 
-               {  (open && data != null) ? (
-                  data.user.projects.map((ass) => (
-                     <div key={ass.name} onClick={() => handleProject()}
+               {  (open && data != null) && (
+                  data.projects.map((ass) => (
+                     <div key={ass.name}
                         className="p-2 flex hover:bg-orange-200 transition-colors duration-500 ">
                            <Link href={{
-                              pathname:"project",
+                              pathname:"dashboard",
                               query: { slug: ass.name, email: data.id},   
                            }}>
                               {ass.name}  
                            </Link>
                      </div>
-                  ))) : (
-                     <div></div>
-                  )
+                  )))
                }
             </div>
             <button onClick={() => console.log(data)}>Recive</button>
