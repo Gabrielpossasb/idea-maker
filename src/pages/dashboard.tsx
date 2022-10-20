@@ -5,45 +5,31 @@ import {useRouter} from 'next/router'
 import { UserContext } from "../contexts/getUser";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc, where, query as q } from "firebase/firestore";
 import { db } from "../services/firebase-config";
-import { FiArrowRightCircle } from "react-icons/fi";
+import { FiArrowDown, FiArrowRightCircle } from "react-icons/fi";
 import { dataType } from "./project";
 import { UserProject } from "./home";
 
 export default function Dashboard() {
-   const { user, verifiedUser } = useContext(UserContext) 
+   const { verifiedUser } = useContext(UserContext) 
    const { query,push } = useRouter()
 
-   const [ data, setData ] = useState<UserProject>({} as UserProject)
-
-   const [ id , setId ] = useState('')
-
-   const [ docTitle, setDocTitle ] = useState('')
-   const [ docDescription1, setDocDescription1 ] = useState('')
+   let idProject = ''
+   const [data, setData] = useState<UserProject>({} as UserProject)
 
    const stats = { name: query.slug as string, id: query.email as string}
 
+
     useEffect( () => {
-      UserVerified();
+      verifiedUser()   
    }, [])
 
    async function handleGetData() {
-      const req = q(collection(db, "user-data", stats.id, 'projects'), where( "name", '==', stats.name));
-      const querySnapshot = await getDocs(req);
-      querySnapshot.forEach((doc) =>{
-         console.log(doc.data(), 'as');
-         setId(doc.id)
-      })
-
-   }
-
-   async function UserVerified() {
-      await new Promise(resolve => setTimeout(resolve, 4000));
-      verifiedUser()   
+      
    }
 
    async function handleSendData() {
 
-      await updateDoc(doc(db, "user-data", stats.id, 'projects', 'xdMHEBCpqjBqP3s6j1Fz'), {
+      await updateDoc(doc(db, "user-data", stats.id, 'projects', idProject), {
          name: data.name,  
          title: data.title
       });
@@ -72,13 +58,20 @@ export default function Dashboard() {
                <FiArrowRightCircle size={24} color={'#fff'}/>
             </button>
 
+            <button onClick={() => handleGetData()}
+               className=" px-6 absolute border-2 border-orange-400 top-6 py-2 rounded-xl text-white flex flex-col items-center
+               hover:top-8 hover:text-orange-600 hover:bg-gray-600 duration-500">
+               <FiArrowDown size={32}/>
+               Carregar Dados
+            </button>
+
             <input className="h-20 w-[80%] text-center text-5xl outline-none rounded-lg border-2 border-gray-400" value={data.title}
              onChange={(e) => setData({...data, title: e.target.value})}/>
             
-            <img src="" className="bg-gray-700 h-48 w-[50%]"/>
+            <input className="h-20 w-[80%] text-center text-5xl outline-none rounded-lg border-2 border-gray-400" value={data.name}
+             onChange={(e) => setData({...data, name: e.target.value})}/>
 
-            <input type={"image"}/>
-
+            <div className="bg-gray-700 h-48 w-[50%]"/>
 
             <text className="text-center w-[800px]">{data.name}</text>
 

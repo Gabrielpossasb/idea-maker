@@ -14,7 +14,7 @@ export function Header() {
    return(
       <div className={`bg-orange-600 shadow-header flex items-center justify-between px-10 `}>
          <img className="" src="./Logo.svg" />
-         { (asPath === '/dashboard' || asPath === '/home') && (
+         { (user != '') && (
             <div className="bg-orange-300 flex rounded-full items-center justify-center gap-2 px-4 py-2 border-[#e7ac7c] border-2">
                <div className="w-10 h-10 bg-cyan-400 items-center flex rounded-full justify-center text-white text-3xl font-medium">
                   {user.substring(0,1).toLocaleUpperCase()}
