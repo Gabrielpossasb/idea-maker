@@ -2,34 +2,44 @@ import { signOut } from "firebase/auth";
 import { useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import {useRouter} from 'next/router'
-import { UserContext } from "../contexts/getUser";
+import { UserContext, UserProjectData } from "../contexts/getUser";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, setDoc, updateDoc, where, query as q } from "firebase/firestore";
 import { db } from "../services/firebase-config";
 import { FiArrowDown, FiArrowRightCircle } from "react-icons/fi";
 import { dataType } from "./project";
 import { UserProject } from "./home";
+import Link from "next/link";
 
 export default function Dashboard() {
-   const { verifiedUser } = useContext(UserContext) 
+   const { verifiedUser, dataProject } = useContext(UserContext) 
    const { query,push } = useRouter()
 
    let idProject = ''
-   const [data, setData] = useState<UserProject>({} as UserProject)
+   const [data, setData] = useState<UserProjectData>({} as UserProjectData)
 
-   const stats = { name: query.slug as string, id: query.email as string}
-
+   const stats = { name: query.slug! as string, id: query.email! as string}
 
     useEffect( () => {
-      verifiedUser()   
-   }, [])
+      if (query.slug != undefined) {
+         verifiedUser()
+      } else {
+         console.log('gmap')
+      }
+      
+   }, [query.slug])
+
+   useEffect(() => {
+      setData(dataProject)
+   }, [dataProject])
 
    async function handleGetData() {
+      console.log(stats)
       
    }
 
    async function handleSendData() {
 
-      await updateDoc(doc(db, "user-data", stats.id, 'projects', idProject), {
+      await updateDoc(doc(db, "user-data", stats.id, 'projects', data.id), {
          name: data.name,  
          title: data.title
       });
@@ -54,15 +64,22 @@ export default function Dashboard() {
                hover:opacity-100 duration-700 text-xl items-center fixed hover:right-[7%] right-[6%] bottom-14
                hover:shadow-orangeButton`}
             >
-               Go to project 
-               <FiArrowRightCircle size={24} color={'#fff'}/>
+               <Link href={{
+                  pathname:"project",
+                  query: { slug: data.name, email: stats.id},   
+               }}>
+                  Go to project 
+               </Link>
+               <FiArrowRightCircle size={24} color={'#fff'}/> 
+
+              
             </button>
 
             <button onClick={() => handleGetData()}
                className=" px-6 absolute border-2 border-orange-400 top-6 py-2 rounded-xl text-white flex flex-col items-center
                hover:top-8 hover:text-orange-600 hover:bg-gray-600 duration-500">
                <FiArrowDown size={32}/>
-               Carregar Dados
+               SAVE
             </button>
 
             <input className="h-20 w-[80%] text-center text-5xl outline-none rounded-lg border-2 border-gray-400" value={data.title}
