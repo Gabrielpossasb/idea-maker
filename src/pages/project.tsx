@@ -1,42 +1,33 @@
-import { doc, getDoc } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Header } from "../components/Header";
-import { db } from "../services/firebase-config";
-import Router, { useRouter } from 'next/router'
-import { UserContext, UserProjectData } from "../contexts/getUser";
-
-export interface dataType {
-   name: string,
-   title: string,
-   description: string
-}
+import { useRouter } from 'next/router'
+import { UserContext } from "../contexts/getUser";
 
 export default function Project() {
    const { verifiedUser, dataProject } = useContext(UserContext) 
    const { query,push } = useRouter()
 
-
    useEffect( () => {
       if (query.slug != undefined) {
          verifiedUser()
-      } else {
-         console.log('gmap')
-      }
-      
+      }      
    }, [query.slug])
-
-   
 
    return (
       <div className='h-[100vh] flex flex-col'>
          <Header/>
-         <div className="flex p-10 items-center flex-col gap-8">
-            {dataProject.name}
+         <div className="flex p-4 py-8 justify-center">
+            <div className="flex items-center flex-col w-full max-w-5xl gap-8">
+               <text className="p-4 text-center text-5xl">{dataProject.title}</text>
+               
+               <div className="bg-gray-700 h-48 w-[50%]"/>
 
-            <text className="p-4 text-center text-5xl outline-none rounded-lg border-2 border-gray-400">{dataProject.title}</text>
-            
-            <text className="text-center w-[800px]">{dataProject.title}</text>
+               <text className="text-center">{dataProject.description1}</text>
 
+               <text className="text-center text-4xl">{dataProject.subTitle2}</text>
+
+               <text className="text-center">{dataProject.description2}</text>
+            </div>
          </div>
       </div>
    )

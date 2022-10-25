@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import Router from "next/router";
-import { FormEvent, useContext, useState } from "react";
-import { GetServerSideProps } from "next";
+import { FormEvent, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase-config";
 import { FiEye, FiEyeOff } from "react-icons/fi";

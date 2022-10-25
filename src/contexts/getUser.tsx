@@ -1,28 +1,19 @@
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { createContext, ReactNode, useState } from "react";
 import { auth, db } from "../services/firebase-config";
 import Router, { useRouter } from 'next/router'
-import { collection, getDocs, query as q, where } from "firebase/firestore";
-import { UserData, UserProject } from "../pages/home";
-
-export type User = {
-   email: string;
-   isVerified: boolean;
-}
+import { collection, doc, getDoc, getDocs, query as q, where } from "firebase/firestore";
+import { Projects, UserData } from "../components/TypesUsage";
 
 type UserProviderProps = {
    children: ReactNode;
-}
-
-export interface UserProjectData extends UserProject {
-   id:  string
 }
 
 type UserContextData = {
    data: UserData;
    user: string;
    verifiedUser: () => void;
-   dataProject: UserProjectData;
+   dataProject: Projects;
    
 }
 
@@ -33,7 +24,7 @@ export function UserProvider({children}: UserProviderProps) {
    const [user, setUser] = useState('');
 
    const [ data, setData ] = useState<UserData>({} as UserData)
-   const [ dataProject, setDataProject ] = useState<UserProjectData>({} as UserProjectData)
+   const [ dataProject, setDataProject ] = useState<Projects>({} as Projects)
    
    let stats = {name: query.slug as string, id: query.email as string}
 
@@ -48,30 +39,30 @@ export function UserProvider({children}: UserProviderProps) {
       if(usertStats.id != '') {
          
          const qProjects = collection(db, "user-data", usertStats.id, 'projects');
-         let projetctsArr: UserProject[] = []
+         let projetctsArr: Projects[] = []
+         let projectSave: Projects = {} as Projects
          const querySnapshotProjects = await getDocs(qProjects);
          querySnapshotProjects.forEach((doc) =>{
-            projetctsArr = [...projetctsArr, doc.data() as UserProject]
+            projectSave = doc.data() as any
+            console.log(projectSave, 'somente o objeto')
+            projectSave = {...projectSave, id: doc.id as string}
+            console.log(projectSave, 'objeto com id')
+            projetctsArr = [...projetctsArr, projectSave as Projects]
+            console.log(projetctsArr,  'array de objetos')
          })
-         setData({id:usertStats.id, user:usertStats.user, projects:projetctsArr as [{ name: string; title: string; }]});
+         setData({id:usertStats.id, user:usertStats.user, projects:projetctsArr as any});
       } else {
          console.log('usuario ainda nao logado')
       }
    }
    
-   async function getDataHomeProject() {
+   async function getDataProject() {
       console.log(stats)
-      let dataProjectSave = {} as UserProjectData
 
-      const req =q(collection(db, "user-data", stats.id, 'projects'), where('name', '==', stats.name));
-      const querySnapshot = await getDocs(req);
-
-      querySnapshot.forEach((doc) =>{
-         dataProjectSave = {id:doc.id, name: doc.data().name, title: doc.data().title};
-      
-      });
-      
-      setDataProject(dataProjectSave)
+      const req = doc(db, "user-data", stats.id, 'projects', stats.name);
+      const querySnapshot = await getDoc(req);
+      console.log(querySnapshot.data())
+      setDataProject(querySnapshot.data() as Projects)
    }
 
    function verifiedUser() {
@@ -86,7 +77,7 @@ export function UserProvider({children}: UserProviderProps) {
                               
             } else  {
                setUser(currentUser.email!)
-               getDataHomeProject()
+               getDataProject()
             }
          }
       })
