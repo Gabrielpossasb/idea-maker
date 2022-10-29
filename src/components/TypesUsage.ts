@@ -6,6 +6,7 @@ export type User = {
 export interface Projects {
    id: string,
    name: string,
+   bgColor: string,
    title: string,
    description1: string,
    subTitle2: string,

@@ -14,7 +14,6 @@ export default function Dashboard() {
    const { query,push } = useRouter()
 
    const [project, setProject] = useState<Projects>({} as Projects)
-   const [IDproject, setIDroject] = useState('')
 
    const stats = { name: query.slug! as string, id: query.email! as string}
 
@@ -31,19 +30,14 @@ export default function Dashboard() {
       setProject(dataProject)
    }, [dataProject])
 
-   async function handleGetData() {
-      console.log(stats)
-      
-   }
-
    async function handleSendData() {
-      console.log(IDproject)
 
       await updateDoc(doc(db, "user-data", stats.id, "projects", stats.name), {
          title: project.title,
          description1: project.description1,
          subTitle2: project.subTitle2,
          description2: project.description2,
+         bgColor: project.bgColor
 
       }).then(() => alert('Salvo '+ project.name));
    }
@@ -54,7 +48,7 @@ export default function Dashboard() {
 
    return(
       <div className='h-[100vh] flex flex-1 flex-col'>
-         <Header/>
+         <Header/>         
 
          <div className="fixed w-[100%] bg-gradient-to-br bg-orange-100 justify-between p-2 px-2 lg:bg-transparent bottom-0 flex 
             shadow-insetBottom lg:px-16 lg:shadow-none
@@ -87,11 +81,13 @@ export default function Dashboard() {
             </Link>
          </div>
 
-         <div className="flex px-4 items-center  flex-col justify-center">
+         <div className={`flex px-4 items-center flex-col justify-center`}
+            style={{backgroundColor: project.bgColor}}
+         >
             
             <div className="flex py-8 items-center mb-12 flex-col w-full max-w-5xl gap-8">
-               
-               
+               <input onClick={() => console.log(project)} type={"color"} value={project.bgColor} onChange={e => setProject({...project, bgColor: e.target.value})}></input>
+
                <input className="w-full text-center text-5xl outline-none rounded-lg border-2 border-gray-400" 
                   value={project?.title}
                   onChange={(e) => setProject({...project, title: e.target.value})}
@@ -113,13 +109,9 @@ export default function Dashboard() {
                   value={project?.description2}
                   onChange={(e) => setProject({...project, description2: e.target.value})}
                />
-
-               
-
-               <button onClick={() => handleGetData()} className={'bg-slate-400'}>Receber dados</button>
             </div>
          </div>
-         
+
       </div>
    )
 }
