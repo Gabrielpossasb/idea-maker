@@ -13,6 +13,7 @@ export interface Projects {
    description2: string,
    subTitle3: string,
    description3: string,
+   img1: string,
 }
 
 export interface UserData {
