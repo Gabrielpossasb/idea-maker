@@ -44,21 +44,16 @@ export function UserProvider({children}: UserProviderProps) {
          const querySnapshotProjects = await getDocs(qProjects);
          querySnapshotProjects.forEach((doc) =>{
             projectSave = doc.data() as any
-            console.log(projectSave, 'somente o objeto')
             projectSave = {...projectSave, id: doc.id as string}
-            console.log(projectSave, 'objeto com id')
             projetctsArr = [...projetctsArr, projectSave as Projects]
-            console.log(projetctsArr,  'array de objetos')
          })
-         setData({id:usertStats.id, user:usertStats.user, projects:projetctsArr as any});
+         setData({...data, id:usertStats.id, user:usertStats.user, projects:projetctsArr as any});
       } else {
          console.log('usuario ainda nao logado')
       }
    }
    
    async function getDataProject() {
-      console.log(stats)
-
       const req = doc(db, "user-data", stats.id, 'projects', stats.name);
       const querySnapshot = await getDoc(req);
       console.log(querySnapshot.data())
@@ -71,6 +66,7 @@ export function UserProvider({children}: UserProviderProps) {
             console.log('deslogado')
             Router.push('/')
          } else {
+            setData({...data, userID: currentUser.uid})
             if (Router.asPath === '/home') {
                setUser(currentUser.email!)
                getDataHome(currentUser.email!)

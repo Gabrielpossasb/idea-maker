@@ -1,19 +1,24 @@
-import { useContext, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import {useRouter} from 'next/router'
 import { UserContext } from "../contexts/getUser";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../services/firebase-config";
-import { FiArrowRightCircle, FiHome } from "react-icons/fi";
-import { IoIosHome, IoIosSave, IoMdHome } from "react-icons/io";
+import { db, storage } from "../services/firebase-config";
+import { FiArrowRightCircle } from "react-icons/fi";
+import { IoIosHome, IoIosSave } from "react-icons/io";
 import Link from "next/link";
 import { Projects } from "../components/TypesUsage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { InputAreaDescription } from "../components/InputAreaDescription";
+import { InputAreaTitle } from "../components/InputAreaTitle";
 
 export default function Dashboard() {
-   const { verifiedUser, dataProject } = useContext(UserContext) 
+   const { verifiedUser, dataProject, data } = useContext(UserContext) 
    const { query,push } = useRouter()
 
    const [project, setProject] = useState<Projects>({} as Projects)
+
+   const [photo, setPhoto] = useState(null);
 
    const stats = { name: query.slug! as string, id: query.email! as string}
 
@@ -37,7 +42,9 @@ export default function Dashboard() {
          description1: project.description1,
          subTitle2: project.subTitle2,
          description2: project.description2,
-         bgColor: project.bgColor
+         bgColor: project.bgColor,
+         img1: project.img1,
+         
 
       }).then(() => alert('Salvo '+ project.name));
    }
@@ -46,11 +53,29 @@ export default function Dashboard() {
       handleSendData()
    }
 
+   function handleChange(e: any) {
+      if (e.target.files[0]) {
+         setPhoto(e.target.files[0])
+      }
+   }
+
+   async function Upload(file: any) {
+      const fileRef = ref(storage, data.userID + '/' + stats.name + '/' + file.name);
+    
+      
+      const snapshot = await uploadBytes(fileRef, file);
+      const photoURL = await getDownloadURL(fileRef);
+
+      setProject({...project, img1:photoURL})
+      
+      alert("Uploaded file!");
+    }
+
    return(
       <div className='h-[100vh] flex flex-1 flex-col'>
          <Header/>         
 
-         <div className="fixed w-[100%] bg-gradient-to-br bg-orange-100 justify-between p-2 px-2 lg:bg-transparent bottom-0 flex 
+         <div className="fixed w-[100%] bg-gradient-to-br bg-orange-100 justify-around p-2 px-2 lg:bg-transparent bottom-0 flex 
             shadow-insetBottom lg:px-16 lg:shadow-none
          ">
 
@@ -88,27 +113,36 @@ export default function Dashboard() {
             <div className="flex py-8 items-center mb-12 flex-col w-full max-w-5xl gap-8">
                <input onClick={() => console.log(project)} type={"color"} value={project.bgColor} onChange={e => setProject({...project, bgColor: e.target.value})}></input>
 
-               <input className="w-full text-center text-5xl outline-none rounded-lg border-2 border-gray-400" 
+               <input className="block p-2.5 w-full text-4xl text-center font-semibold text-gray-900 bg-gray-50/90 rounded-lg
+                   border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none" 
                   value={project?.title}
                   onChange={(e) => setProject({...project, title: e.target.value})}
                />
 
-               <div className="bg-gray-700 h-48 w-[50%]"/>
+               <img src={project.img1} alt={'Image Intouction'} className="bg-gray-700 h-48 w-[50%]"/>
 
-               <input className="w-full text-center text-xl outline-none rounded-lg border-2 border-gray-400" 
-                  value={project?.description1}
-                  onChange={(e) => setProject({...project, description1: e.target.value})}
+               <div className="flex gap-8 items-center">
+                  <input className="block w-full text-sm text-gray-900 rounded-lg bordercursor-pointer focus:outline-none" 
+                  id="file_input" type="file" onChange={(e) => handleChange(e)}/>
+                  <button className="bg-pink-400 text-white px-4 p-1 hover:brightness-75 duration-500 rounded-lg" onClick={() => Upload(photo)}>Upload</button>
+               </div>
+
+               <InputAreaDescription label="Descrição 1 ..."  project={project.description1} 
+                  setProject={(e: string) => setProject({...project, description1:e})}
+                  decoration={''}
+                  
                />
 
-               <input className="w-full text-center text-xl outline-none rounded-lg border-2 border-gray-400" 
-                  value={project?.subTitle2}
-                  onChange={(e) => setProject({...project, subTitle2: e.target.value})}
+               <InputAreaTitle label="Sub-Title 1" project={project.subTitle2} 
+                  setProject={(e: string) => setProject({...project, subTitle2:e})}
+                  decoration={''}
                />
 
-               <input className="w-full text-center text-xl outline-none rounded-lg border-2 border-gray-400" 
-                  value={project?.description2}
-                  onChange={(e) => setProject({...project, description2: e.target.value})}
+               <InputAreaDescription label="Descrição 2 ..."  project={project.description2} 
+                  setProject={(e: string) => setProject({...project, description2:e})}
+                  decoration={''}
                />
+
             </div>
          </div>
 
