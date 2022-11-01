@@ -23,7 +23,7 @@ export default function Project() {
                
                <text className="p-4 text-center text-5xl">{dataProject.title}</text>
                
-               <div className="bg-gray-700 h-48 w-[50%]"/>
+               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 h-48 w-[50%]"/>
 
                <text className="text-center">{dataProject.description1}</text>
 
