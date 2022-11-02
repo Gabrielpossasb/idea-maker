@@ -7,6 +7,7 @@ export interface Projects {
    id: string,
    name: string,
    bgColor: string,
+   textColor: string,
    title: string,
    description1: string,
    subTitle2: string,
@@ -14,6 +15,7 @@ export interface Projects {
    subTitle3: string,
    description3: string,
    img1: string,
+   img2: string,
 }
 
 export interface UserData {

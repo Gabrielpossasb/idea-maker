@@ -16,18 +16,20 @@ export default function Project() {
    return (
       <div className='h-[100vh] flex flex-col'>
          <Header/>
-         <div className="flex p-4 py-8 justify-center"
-            style={{backgroundColor: dataProject.bgColor}}
+         <div className="flex p-4 py-8 justify-center "
+            style={{backgroundColor: dataProject.bgColor, color: dataProject.textColor}}
          >
-            <div className="flex items-center flex-col w-full max-w-5xl gap-8">
+            <div className="flex items-center flex-col w-full max-w-5xl gap-12">
                
                <text className="p-4 text-center text-5xl">{dataProject.title}</text>
-               
-               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 h-48 w-[50%]"/>
+
+               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
 
                <text className="text-center">{dataProject.description1}</text>
 
                <text className="text-center text-4xl">{dataProject.subTitle2}</text>
+
+               <img src={dataProject.img2} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
 
                <text className="text-center">{dataProject.description2}</text>
             </div>
