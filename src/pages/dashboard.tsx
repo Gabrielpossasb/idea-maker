@@ -49,7 +49,7 @@ export default function Dashboard() {
          img2: project.img2,
          
 
-      }).then(() => alert('Salvo '+ project.name));
+      }).then(() => alert('Salvo '+ project.name)).catch(() => {alert('Erro ao salvar:' + project.name )});
    }
 
    function handleChange(e: any) {
