@@ -14,7 +14,7 @@ type UserContextData = {
    user: string;
    verifiedUser: () => void;
    dataProject: Projects;
-   
+   getProject: () => void;
 }
 
 export const UserContext = createContext<UserContextData>({} as UserContextData)
@@ -78,10 +78,14 @@ export function UserProvider({children}: UserProviderProps) {
          }
       })
    }
+
+   async function getProject() {
+      getDataProject()
+   }
    
 
    return (
-      <UserContext.Provider value={{ user, verifiedUser, data, dataProject }}>
+      <UserContext.Provider value={{ user, verifiedUser, data, dataProject, getProject }}>
          {children}
       </UserContext.Provider>
    );

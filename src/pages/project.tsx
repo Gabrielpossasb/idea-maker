@@ -4,18 +4,27 @@ import { useRouter } from 'next/router'
 import { UserContext } from "../contexts/getUser";
 
 export default function Project() {
-   const { verifiedUser, dataProject } = useContext(UserContext) 
-   const { query,push } = useRouter()
+   const { verifiedUser, dataProject, getProject } = useContext(UserContext) 
+   const { query,push, asPath } = useRouter()
 
    useEffect( () => {
       if (query.slug != undefined) {
-         verifiedUser()
+         getProject()
       }      
    }, [query.slug])
 
    return (
       <div className='h-[100vh] flex flex-col'>
-         <Header/>
+
+         {(asPath.split('?')[0] === '/project') ? (
+            <div className="left-10 top-4 absolute cursor-pointer"
+               style={{backgroundColor:dataProject.bgColor}}
+            >
+               <img className="w-32 lg:w-36 hover:brightness-75 duration-300" onClick={() => push('/home')} src="./Logo.svg" />
+            </div>
+         ) : (
+            <Header/>
+         )}
          <div className="flex p-4 py-8 justify-center "
             style={{backgroundColor: dataProject.bgColor, color: dataProject.textColor}}
          >

@@ -130,7 +130,7 @@ export default function Dashboard() {
                <img src={project.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
 
                <div className="flex gap-8 items-center">
-                  <input className="block w-full text-sm rounded-lg bordercursor-pointer focus:outline-none" 
+                  <input className="block file:bg-pink-400 file:text-white file:border-0 file:p-2 file:mr-2 file:hover:brightness-75 file:duration-500 w-full text-white text-sm rounded-md border border-gray-400 cursor-pointer focus:outline-none" 
                   id="file_input" type="file" onChange={(e) => handleChange(e)}/>
                   <button className="bg-pink-400 text-white px-4 p-1 hover:brightness-75 duration-500 rounded-lg" 
                   onClick={() => Upload(photo, 1)}>Upload</button>
@@ -147,10 +147,10 @@ export default function Dashboard() {
                   decoration={''}
                />
 
-               <img src={project.img2} alt={'Image Intouction 2'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
+               <img src={project.img2} alt={'Image Intouction 2'} className="bg-gray-700 max-w-xs sm:max-w-3xl rounded-md border border-gray-500"/>
                <text>Width: 768px</text>
                <div className="flex gap-8 items-center">
-                  <input className="block w-full text-sm rounded-lg bordercursor-pointer focus:outline-none" 
+                  <input className="block file:bg-pink-400 file:text-white file:border-0 file:p-2 file:mr-2 file:hover:brightness-75 file:duration-500 w-full text-white text-sm rounded-md border border-gray-400 cursor-pointer focus:outline-none" 
                   id="file_input" type="file" onChange={(e) => handleChange(e)}/>
                   <button className="bg-pink-400 text-white px-4 p-1 hover:brightness-75 duration-500 rounded-lg" 
                   onClick={() => Upload(photo, 2)}>Upload</button>
