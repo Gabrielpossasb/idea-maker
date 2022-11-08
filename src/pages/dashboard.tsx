@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import {useRouter} from 'next/router'
 import { UserContext } from "../contexts/getUser";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../services/firebase-config";
 import { FiArrowRightCircle } from "react-icons/fi";
 import { IoIosHome, IoIosSave } from "react-icons/io";
@@ -12,6 +12,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { InputAreaDescription } from "../components/InputAreaDescription";
 import { InputAreaTitle } from "../components/InputAreaTitle";
 import { CustomizeColor } from "../components/CustomizeColor";
+import { InputImage } from "../components/InputImage";
 
 export default function Dashboard() {
    const { verifiedUser, dataProject, data } = useContext(UserContext) 
@@ -39,6 +40,7 @@ export default function Dashboard() {
    async function handleSendData() {
 
       await updateDoc(doc(db, "user-data", stats.id, "projects", stats.name), {
+         updatedAt: serverTimestamp(),
          title: project.title,
          description1: project.description1,
          subTitle2: project.subTitle2,
@@ -47,8 +49,6 @@ export default function Dashboard() {
          textColor: project.textColor,
          img1: project.img1,
          img2: project.img2,
-         
-
       }).then(() => alert('Salvo '+ project.name)).catch(() => {alert('Erro ao salvar:' + project.name )});
    }
 
@@ -122,19 +122,12 @@ export default function Dashboard() {
                />
 
                <input className="block p-2.5 w-full text-4xl text-center font-semibold bg-gray-50/5 rounded-lg
-                   border border-gray-300 focus:ring-blue-500 focus:border-blue-500 outline-none" 
+                  border border-transparent focus:ring-blue-500 focus:border-blue-500 outline-none" 
                   value={project?.title}
                   onChange={(e) => setProject({...project, title: e.target.value})}
                />
 
-               <img src={project.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
-
-               <div className="flex gap-8 items-center">
-                  <input className="block file:bg-pink-400 file:text-white file:border-0 file:p-2 file:mr-2 file:hover:brightness-75 file:duration-500 w-full text-white text-sm rounded-md border border-gray-400 cursor-pointer focus:outline-none" 
-                  id="file_input" type="file" onChange={(e) => handleChange(e)}/>
-                  <button className="bg-pink-400 text-white px-4 p-1 hover:brightness-75 duration-500 rounded-lg" 
-                  onClick={() => Upload(photo, 1)}>Upload</button>
-               </div>
+               <InputImage alt="Primeira Imagem" src={project.img1} Upload={() => Upload(photo, 1)} handleChange={(e) => handleChange(e)} />
 
                <InputAreaDescription label="Descrição 1 ..."  project={project.description1} 
                   setProject={(e: string) => setProject({...project, description1:e})}
@@ -147,14 +140,7 @@ export default function Dashboard() {
                   decoration={''}
                />
 
-               <img src={project.img2} alt={'Image Intouction 2'} className="bg-gray-700 max-w-xs sm:max-w-3xl rounded-md border border-gray-500"/>
-               <text>Width: 768px</text>
-               <div className="flex gap-8 items-center">
-                  <input className="block file:bg-pink-400 file:text-white file:border-0 file:p-2 file:mr-2 file:hover:brightness-75 file:duration-500 w-full text-white text-sm rounded-md border border-gray-400 cursor-pointer focus:outline-none" 
-                  id="file_input" type="file" onChange={(e) => handleChange(e)}/>
-                  <button className="bg-pink-400 text-white px-4 p-1 hover:brightness-75 duration-500 rounded-lg" 
-                  onClick={() => Upload(photo, 2)}>Upload</button>
-               </div>
+               <InputImage alt="Segunda Imagem" src={project.img2} Upload={() => Upload(photo, 2)} handleChange={(e) => handleChange(e)} />
 
                <InputAreaDescription label="Descrição 2 ..."  project={project.description2} 
                   setProject={(e: string) => setProject({...project, description2:e})}

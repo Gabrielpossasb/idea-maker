@@ -1,9 +1,13 @@
+import { Timestamp } from "firebase/firestore";
+
 export type User = {
    email: string;
    isVerified: boolean;
 }
 
 export interface Projects {
+   createdAt: Timestamp,
+   updatedAt: Timestamp,
    id: string,
    name: string,
    bgColor: string,
@@ -16,6 +20,7 @@ export interface Projects {
    description3: string,
    img1: string,
    img2: string,
+   
 }
 
 export interface UserData {

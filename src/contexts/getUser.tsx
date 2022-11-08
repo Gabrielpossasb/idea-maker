@@ -47,6 +47,8 @@ export function UserProvider({children}: UserProviderProps) {
             projectSave = {...projectSave, id: doc.id as string}
             projetctsArr = [...projetctsArr, projectSave as Projects]
          })
+         console.log(projectSave + '1')
+         console.log(projetctsArr + '3')
          setData({...data, id:usertStats.id, user:usertStats.user, projects:projetctsArr as any});
       } else {
          console.log('usuario ainda nao logado')
@@ -56,7 +58,6 @@ export function UserProvider({children}: UserProviderProps) {
    async function getDataProject() {
       const req = doc(db, "user-data", stats.id, 'projects', stats.name);
       const querySnapshot = await getDoc(req);
-      console.log(querySnapshot.data())
       setDataProject(querySnapshot.data() as Projects)
    }
 

@@ -7,12 +7,20 @@ import { auth } from "../services/firebase-config";
 
 
 export function Header() {
-   const { user } = useContext(UserContext)
+   const { user, dataProject } = useContext(UserContext)
    const { asPath, push } = useRouter()
 
    return(
       <div className={`bg-orange-600 shadow-header relative top-0 flex items-center justify-between px-10 `}>
-         <img className="w-32 lg:w-36" onClick={() => push('/home')} src="./Logo.svg" />
+         <img className="w-32 lg:w-36 hover:cursor-pointer hover:brightness-90 duration-300" onClick={() => push('/home')} src="./Logo.svg" />
+         
+         { (asPath.split('?')[0] === '/dashboard') && (
+            <div className="flex rounded-md items-center font-medium p-2 text-white "
+            >
+               <text className="text-3xl">{dataProject.name}</text>
+            </div>
+         )}
+
          { (asPath.split('?')[0] === '/project' || user != '') && (
             <div className="bg-[#f7a74c] flex rounded-full items-center border-2 duration-200 border-orange-600 hover:border-orange-400 font-medium text-white justify-center gap-2 px-4 py-2">
                <div className="w-10 h-10 bg-[#0ECBC0] items-center flex rounded-full justify-center text-3xl">

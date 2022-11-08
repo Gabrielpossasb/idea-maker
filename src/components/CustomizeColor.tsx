@@ -17,13 +17,17 @@ export function CustomizeColor({project, setBg, setText}: CustomizeColorProps) {
             <IoBrush size={32} className={`${open&&'rotate-[270deg]'} duration-700`}/>
          </button>
         
-         <div className={`relative left-0 flex flex-col py-6 p-1 rounded-xl items-center shadow-xl bg-orange-100 transition-all duration-500 gap-4 ${open ? 'opacity-100' : 'opacity-0'}`}>
+         <div className={`relative left-0 flex flex-col py-6 p-1 rounded-xl items-center text-gray-800 font-semibold shadow-xl bg-orange-100 transition-all duration-500 ${open ? 'opacity-100' : 'opacity-0'}`}>
+            <text>FUNDO</text>
             <input type={"color"} value={project.bgColor} onChange={e => setBg( e.target.value)}
-               className={`rounded-full bg-transparent h-10 w-10`}
+               className={`rounded-full bg-transparent h-10 w-10 `}
             />
+            -
+            <text>TEXTO</text>
             <input type={"color"} value={project.textColor} onChange={e => setText( e.target.value)}
                className={`rounded-full bg-transparent h-10 w-10`}
             />
+            -
          </div>
          
       </div>
