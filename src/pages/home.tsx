@@ -132,13 +132,16 @@ export default function Home() {
                               </button>
                            </Link>
 
-                           <text className="text-xl font-semibold"> 
-                              <span className="mr-1 text-sm font-medium text-orange-300/80"> update: </span>
-                              { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
-                              <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
-                           </text>
                            
-                           <div className="flex items-center gap-8 "> 
+                           <div className="flex items-center gap-10 "> 
+                              <text className="text-xl font-semibold "> 
+                                 <span className="mr-1 text-sm font-medium text-orange-300/80"> atualizado: </span>
+                                 { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
+                                 <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
+                              </text>
+
+                              -
+
                               <text className="font-semibold text-base"> {ass.createdAt?.toDate().toLocaleDateString()} </text>
 
                               <button  onClick={() => deleteProject(ass.id)}
