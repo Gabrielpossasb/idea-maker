@@ -4,8 +4,8 @@ import {useRouter} from 'next/router'
 import { UserContext } from "../contexts/getUser";
 import { doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../services/firebase-config";
-import { FiArrowRightCircle } from "react-icons/fi";
-import { IoIosHome, IoIosSave } from "react-icons/io";
+import { FiArrowRightCircle, FiEdit2 } from "react-icons/fi";
+import { IoIosHome, IoIosSave, IoMdCreate } from "react-icons/io";
 import Link from "next/link";
 import { Projects } from "../components/TypesUsage";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -13,12 +13,15 @@ import { InputAreaDescription } from "../components/InputAreaDescription";
 import { InputAreaTitle } from "../components/InputAreaTitle";
 import { CustomizeColor } from "../components/CustomizeColor";
 import { InputImage } from "../components/InputImage";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 export default function Dashboard() {
    const { verifiedUser, dataProject, data } = useContext(UserContext) 
    const { query,push } = useRouter()
 
    const [project, setProject] = useState<Projects>({} as Projects)
+
+   const [ editName, setEditName ] = useState(false)
 
    const [photo, setPhoto] = useState(null);
 
@@ -40,6 +43,7 @@ export default function Dashboard() {
    async function handleSendData() {
 
       await updateDoc(doc(db, "user-data", stats.id, "projects", stats.name), {
+         name: project.name,
          updatedAt: serverTimestamp(),
          title: project.title,
          description1: project.description1,
@@ -120,6 +124,14 @@ export default function Dashboard() {
                   setBg={(e: string) => setProject({...project, bgColor:e})}
                   setText={(e: string) => setProject({...project, textColor:e})}
                />
+
+               <div className="flex flex-col gap-2 -mt-28 z-30 rounded-md items-center font-medium p-2 text-white ">
+                  <IoMdCreate size={20} className={'text-green-400'}/>
+ 
+                  <input value={project.name} onChange={(e) => setProject({...project, name:e.target.value})} 
+                     className="text-3xl bg-orange-300 text-center rounded-md px-3 outline-none"
+                  />
+               </div>
 
                <input className="block p-2.5 w-full text-4xl text-center font-semibold bg-gray-50/5 rounded-lg
                   border border-transparent focus:ring-blue-500 focus:border-blue-500 outline-none" 

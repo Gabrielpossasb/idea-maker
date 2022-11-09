@@ -117,7 +117,7 @@ export default function Home() {
                {  (open) && (
                   (data.projects != null) ? (
                      data.projects.map((ass) => (
-                        <div key={ass.name} onClick={() => console.log(hover)}
+                        <div key={ass.id} onClick={() => console.log(hover)}
                            className={`p-1 px-6 w-full flex group justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
                            hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1`}
                            style={{}}
