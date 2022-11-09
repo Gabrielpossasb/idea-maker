@@ -24,9 +24,9 @@ export default function Project() {
       <div className='h-[100vh] flex flex-col'>
 
          {(!!user) && (
-            <div className="left-10 top-4 absolute cursor-pointer bg-orange-600 rounded-lg"
+            <div className="cursor-pointer w-full bg-orange-600 justify-center flex"
             >
-               <img className="w-32 lg:w-36 hover:brightness-75 duration-300" onClick={() => push('/home')} src="./Logo.svg" />
+               <img className="w-16 lg:w-24 hover:brightness-75 duration-300" onClick={() => push('/home')} src="./Logo.svg" />
             </div>
          )}
          <div className="flex p-4 py-8 justify-center "
@@ -36,13 +36,13 @@ export default function Project() {
                
                <text className="p-4 text-center font-bold text-5xl">{dataProject.title}</text>
 
-               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
+               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-full sm:max-w-3xl rounded-md border border-gray-500"/>
 
                <text className="text-center">{dataProject.description1}</text>
 
                <text className="text-center text-4xl">{dataProject.subTitle2}</text>
 
-               <img src={dataProject.img2} alt={'Image Intouction'} className="bg-gray-700 max-w-3xl rounded-md border border-gray-500"/>
+               <img src={dataProject.img2} alt={'Image Intouction'} className="bg-gray-700 max-w-full sm:max-w-3xl rounded-md border border-gray-500"/>
 
                <text className="text-center">{dataProject.description2}</text>
             </div>

@@ -12,7 +12,7 @@ export function CustomizeColor({project, setBg, setText}: CustomizeColorProps) {
    const [ open, setOpen ] = useState(false)
 
    return (
-      <div className={`absolute left-10 flex flex-col gap-4 items-center`}>
+      <div className={`fixed left-2 sm:left-10 flex flex-col gap-4 items-center`}>
          <button className={`bg-gray-50 p-2 rounded-full hover:p-3 text-orange-500 duration-500 transition-all shadow-xl ${open ? 'p-3 bg-orange-200': ''}`} onClick={() => setOpen(!open)}>
             <IoBrush size={32} className={`${open&&'rotate-[270deg]'} duration-700`}/>
          </button>

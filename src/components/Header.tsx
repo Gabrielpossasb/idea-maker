@@ -23,7 +23,7 @@ export function Header() {
                <text className="sm:flex hidden">{user.split('@')[0]}</text>
                <FiX size={32} 
                   onClick={() =>signOut(auth)}
-                  className={'hover:bg-[#d1832abb] text-gray-500 transition-colors duration-500 rounded-full p-1'}   
+                  className={'hover:bg-[#d1832abb] text-gray-500 transition-colors duration-500 rounded-full hover:cursor-pointer p-1'}   
                />
             </div>
          )}

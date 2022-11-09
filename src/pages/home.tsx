@@ -66,7 +66,7 @@ export default function Home() {
       <div className='h-[100vh] flex flex-col '>
          
          <Header/>
-         <div className="p-10 py-16 flex-1 flex z-20 flex-col">
+         <div className="p-4 sm:p-10 py-16 flex-1 flex z-20 flex-col">
             <div className="flex gap-10 items-center flex-wrap">
                <div className="flex gap-4 items-center">
                   <div className={`w-2 h-2 bg-orange-400 rounded-sm  duration-500
@@ -106,7 +106,7 @@ export default function Home() {
                )}
             </div>
 
-            <div className={`flex flex-col pt-16 items-center pl-4 text-lg gap-4 ${open?'opacity-100':'opacity-0'} 
+            <div className={`flex flex-col pt-16 items-center text-lg gap-4 ${open?'opacity-100':'opacity-0'} 
                delay-200 duration-1000`
             }>
 
@@ -118,7 +118,7 @@ export default function Home() {
                   (data.projects != null) ? (
                      data.projects.map((ass) => (
                         <div key={ass.id} onClick={() => console.log(hover)}
-                           className={`p-1 px-6 w-full flex group justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
+                           className={`p-2 px-6 w-full sm:flex group flex-wrap justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
                            hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1`}
                            style={{}}
                         >
@@ -127,22 +127,19 @@ export default function Home() {
                               pathname:"dashboard",
                               query: { slug: ass.id, email: data.id },   
                            }}>
-                              <button className={`group-hover:text-orange-600 group-hover:animate-pulse duration-300`}>
+                              <button className={`group-hover:text-orange-600 font-semibold group-hover:animate-pulse duration-300`}>
                                  {ass.name}  
                               </button>
                            </Link>
 
                            
-                           <div className="flex items-center gap-10 "> 
-                              <text className="text-xl font-semibold "> 
+                           <div className="flex items-center gap-4 justify-between sm:gap-10 "> 
+                              <text className="text-xl"> 
                                  <span className="mr-1 text-sm font-medium text-orange-300/80"> atualizado: </span>
                                  { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
                                  <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
                               </text>
 
-                              -
-
-                              <text className="font-semibold text-base"> {ass.createdAt?.toDate().toLocaleDateString()} </text>
 
                               <button  onClick={() => deleteProject(ass.id)}
                                  className="hover:text-orange-400 hover:animate-spin duration-500 rounded-full hover:bg-orange-100 p-2"

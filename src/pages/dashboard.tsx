@@ -83,8 +83,8 @@ export default function Dashboard() {
       <div className='h-[100vh] flex flex-1 flex-col'>
          <Header/>         
 
-         <div className="fixed w-[100%] bg-gradient-to-br bg-orange-100 justify-around p-2 px-2 lg:bg-transparent bottom-0 flex 
-            shadow-insetBottom lg:px-16 lg:shadow-none
+         <div className="fixed w-[100%] justify-around p-2 px-2 lg:bg-transparent bottom-0 flex 
+            lg:px-16 
          ">
 
             <button onClick={() => handleSendData()} 
@@ -125,16 +125,14 @@ export default function Dashboard() {
                   setText={(e: string) => setProject({...project, textColor:e})}
                />
 
-               <div className="flex flex-col gap-2 -mt-28 z-30 rounded-md items-center font-medium p-2 text-white ">
-                  <IoMdCreate size={20} className={'text-green-400'}/>
- 
+               <div className="flex -mt-8 sm:-mt-24 gap-1 mb-2 sm:z-30 rounded-md items-center font-medium p-2 text-white ">
                   <input value={project.name} onChange={(e) => setProject({...project, name:e.target.value})} 
-                     className="text-3xl bg-orange-300 text-center rounded-md px-3 outline-none"
+                     className="text-3xl bg-gray-50/5 sm:bg-orange-300 text-center rounded-md px-3 outline-none border duration-500 border-orange-600 focus:border-orange-200 p-1"
                   />
                </div>
 
                <input className="block p-2.5 w-full text-4xl text-center font-semibold bg-gray-50/5 rounded-lg
-                  border border-transparent focus:ring-blue-500 focus:border-blue-500 outline-none" 
+                  border border-transparent focus:border-blue-500 duration-500 outline-none" 
                   value={project?.title}
                   onChange={(e) => setProject({...project, title: e.target.value})}
                />
