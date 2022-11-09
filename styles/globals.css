@@ -4,11 +4,11 @@
 
 html,
 body {
-  @apply bg-[#F6F6F6] text-[#454444];
+  @apply bg-[#F6F6F6] text-[#5e5d5d];
   padding: 0;
   margin: 0;
   -webkit-font-smoothing: antialiased;
-  font-family: Poppins, Roboto, sans-serif;
+  font-family: Roboto, sans-serif;
 }
 
 a {

@@ -9,13 +9,15 @@ import { db } from "../services/firebase-config";
 export default function Home() {
    const { user, data, verifiedUser } = useContext(UserContext) 
    
+   const [ hover, setHover ] = useState(false)
    const [ open, setOpen ] = useState(true)
    const [ addDoc, setaddDoc ] = useState(false)
 
    const [ newProject, setNewProject ] = useState('')
    
+   let defaultImage = 'https://firebasestorage.googleapis.com/v0/b/test-login-f2dc2.appspot.com/o/Vector-Image-Default.svg?alt=media&token=0629c071-c1aa-4811-83c5-c5c82906111b'
 
-    useEffect( () => {
+   useEffect( () => {
       verifiedUser()  
    }, [])
 
@@ -40,14 +42,14 @@ export default function Home() {
          name: newProject,
          createdAt: serverTimestamp(),
          updatedAt: serverTimestamp(),
-         title: 'a',
-         description1: 'a',
-         subTitle2: 'a',
-         description2: 'a',
+         title: 'Text Example',
+         description1: 'Text Example',
+         subTitle2: 'Text Example',
+         description2: 'Text Example',
          bgColor: '#252525',
          textColor: '#2177f8',
-         img1: 'https://firebasestorage.googleapis.com/v0/b/test-login-f2dc2.appspot.com/o/XAc8pvMFuuOWI4ivZgyff98cQIr1%2Fgb3EumDsMVLH2XRVDfWH%2Fe021cccd68247bc9a6b64ac53c07d7a4.jpg?alt=media&token=9b48878c-62dd-45a4-b459-0b98ee6896ee',
-         img2: 'https://firebasestorage.googleapis.com/v0/b/test-login-f2dc2.appspot.com/o/XAc8pvMFuuOWI4ivZgyff98cQIr1%2Fgb3EumDsMVLH2XRVDfWH%2Fe021cccd68247bc9a6b64ac53c07d7a4.jpg?alt=media&token=9b48878c-62dd-45a4-b459-0b98ee6896ee',
+         img1: defaultImage,
+         img2: defaultImage,
       })
 
       setaddDoc(!addDoc)
@@ -104,45 +106,53 @@ export default function Home() {
                )}
             </div>
 
-            <div className={`flex flex-col pt-16 items-center pl-4 text-lg gap-4 ${open?'opacity-100':'opacity-0'} delay-200 duration-1000`
+            <div className={`flex flex-col pt-16 items-center pl-4 text-lg gap-4 ${open?'opacity-100':'opacity-0'} 
+               delay-200 duration-1000`
             }>
 
                <div className="absolute w-[90%] h-[45%] sm:h-[60%] sm:w-[60%] sm:top-[35%] z-10 blur bg-orange-500/30" 
                   style={{borderRadius:'30% 70% 42% 58% / 67% 28% 72% 33%' }}
                ></div>
 
-            {  (open) && (
-                (data.projects != null) ? (
-                  data.projects.map((ass) => (
-                     <div key={ass.name} onClick={() => console.log(ass)}
-                        className="p-1 px-6 text-gray-600 w-full flex justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
-                        hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1"
-                     >
-                        
-                        <Link  href={{
-                           pathname:"dashboard",
-                           query: { slug: ass.id, email: data.id},   
-                        }}>
-                           <button className="hover:text-orange-400 duration-500">
-                              {ass.name}  
-                           </button>
-                        </Link>
-                        
-                        <div className="flex items-center gap-8 "> 
-                           <text className="font-semibold text-orange-600 text-base"> {ass.createdAt?.toDate().toLocaleDateString()} </text>
+               {  (open) && (
+                  (data.projects != null) ? (
+                     data.projects.map((ass) => (
+                        <div key={ass.name} onClick={() => console.log(hover)}
+                           className={`p-1 px-6 w-full flex group justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
+                           hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1`}
+                           style={{}}
+                        >
+                           
+                           <Link  href={{
+                              pathname:"dashboard",
+                              query: { slug: ass.id, email: data.id },   
+                           }}>
+                              <button className={`group-hover:text-orange-600 group-hover:animate-pulse duration-300`}>
+                                 {ass.name}  
+                              </button>
+                           </Link>
 
-                           <button  onClick={() => deleteProject(ass.id)}
-                              className="hover:text-orange-400 hover:animate-pulse duration-500 rounded-full hover:bg-orange-100 p-2"
-                           >
-                              <FiTrash2 size={26}/>
-                           </button>
+                           <text className="text-xl font-semibold"> 
+                              <span className="mr-1 text-sm font-medium text-orange-300/80"> update: </span>
+                              { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
+                              <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
+                           </text>
+                           
+                           <div className="flex items-center gap-8 "> 
+                              <text className="font-semibold text-base"> {ass.createdAt?.toDate().toLocaleDateString()} </text>
+
+                              <button  onClick={() => deleteProject(ass.id)}
+                                 className="hover:text-orange-400 hover:animate-spin duration-500 rounded-full hover:bg-orange-100 p-2"
+                              >
+                                 <FiTrash2 size={26}/>
+                              </button>
+                           </div>
                         </div>
-                     </div>
-                  ))
-                  ) : (
-                     <div className={`text-gray-800 p-10 text-2xl font-medium`}>... Loading</div>
-                  )
-            )}
+                     ))
+                     ) : (
+                        <div className={`text-gray-800 p-10 text-2xl font-medium`}>... Loading</div>
+                     )
+               )}
             </div>
          </div>
       </div>
