@@ -39,7 +39,7 @@ export function Dashboard() {
                <text>Bem-vindo! Insira seus dados.</text>
             </div>
             
-            <form onSubmit={login} id="form-login"  className={'w-full flex flex-col gap-8'}>
+            <form onSubmit={login} id="form-login"  className={'w-full flex flex-col gap-8 text-gray-800'}>
                <div className="flex w-full gap-1 flex-col font-semibold">
                   Email:
                   <input type={'email'} {...register("email", { required: true, onChange:(event) => setEmail(event.target.value),})} 
