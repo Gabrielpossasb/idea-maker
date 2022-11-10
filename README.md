@@ -22,3 +22,7 @@
 - TailwindCSS
 - Firebase
 - Figma
+- React-Responsive
+- React-Icons
+- React-Textarea-Autosize
+- React-Hook-Form
