@@ -98,7 +98,7 @@ export default function Home() {
                </button>
                
                { addDoc && (
-                  <div className={`flex items-center gap-4 duration-500 transition-all delay-200 w-2 ${addDoc ? 'opacity-100 w-full' : 'opacity-0'}`}>
+                  <div className={`flex items-center gap-4 duration-500 transition-all delay-200 ${addDoc ? 'opacity-100' : 'opacity-0'}`}>
                      <input autoFocus className={`p-1 px-3 w-max ml-8 sm:ml-2 max-w-[400px] outline-none bg-gray-50 rounded-lg border-2 border-red-600 border-opacity-60 ${newProject != '' ? 'border-green-700' : ''}`} value={newProject} onChange={(e) => setNewProject(e.target.value)}/>
                      <button className="p-1 rounded-full shadow-orangelg hover:shadow-orangeButton text-gray-500 top-0 hover:-top-1
                      left-0 hover:left-1 duration-500 relative" onClick={() => {setaddDoc(false), setNewProject('')}}> <FiX size={26}/></button>
