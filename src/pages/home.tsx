@@ -5,11 +5,13 @@ import { UserContext } from "../contexts/getUser";
 import Link from "next/link";
 import { addDoc as aDoc, collection, deleteDoc, doc, serverTimestamp } from "firebase/firestore";
 import { db } from "../services/firebase-config";
+import { useMediaQuery } from "react-responsive";
 
 export default function Home() {
    const { user, data, verifiedUser } = useContext(UserContext) 
    
-   const [ hover, setHover ] = useState(false)
+   const isMobile = useMediaQuery({ query: '(min-width: 640px)'})
+
    const [ open, setOpen ] = useState(true)
    const [ addDoc, setaddDoc ] = useState(false)
 
@@ -117,7 +119,7 @@ export default function Home() {
                {  (open) && (
                   (data.projects != null) ? (
                      data.projects.map((ass) => (
-                        <div key={ass.id} onClick={() => console.log(hover)}
+                        <div key={ass.id}
                            className={`p-2 px-6 w-full sm:flex group flex-wrap justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
                            hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1`}
                            style={{}}
@@ -139,7 +141,13 @@ export default function Home() {
                                  { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
                                  <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
                               </text>
-
+                              
+                              { isMobile && (
+                                 <>
+                                    -
+                                    <text className="font-medium text-base"> { ass.createdAt?.toDate().toLocaleDateString('pt-Br') } </text>
+                                 </>
+                              )}
 
                               <button  onClick={() => deleteProject(ass.id)}
                                  className="hover:text-orange-400 hover:animate-spin duration-500 rounded-full hover:bg-orange-100 p-2"
