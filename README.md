@@ -4,7 +4,7 @@
       
    #### Uma aplicação para criar uma apresentações com modelos pré-montados. ####
 
-   :link: <https://idea-maker.vercel.app/> :link:
+   :link: <https://idea-maker.vercel.app/home> :link:
    
    
 </div>
@@ -22,3 +22,7 @@
 - TailwindCSS
 - Firebase
 - Figma
+- React-Responsive
+- React-Icons
+- React-Textarea-Autosize
+- React-Hook-Form
