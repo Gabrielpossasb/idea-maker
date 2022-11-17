@@ -33,12 +33,16 @@ export default function Project() {
             style={{backgroundColor: dataProject.bgColor, color: dataProject.textColor}}
          >
             <div className="flex items-center flex-col w-full max-w-5xl gap-12">
-               
                <text className="p-4 text-center font-bold text-5xl">{dataProject.title}</text>
-
-               <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-full sm:max-w-3xl rounded-md border border-gray-500"/>
-
-               <text className="text-center">{dataProject.description1}</text>
+               
+               <div className="flex relative w-full bg-[#141414] p-1 shadow-[0_0_60px_60px_#141414]">
+                 
+                  <text  className="text-center w-[50%] z-10 bg-transparent">{dataProject.description1}</text>
+                  <img src={dataProject.img1} alt={'Image Intouction'} 
+                  className=" max-w-full sm:max-w-3xl rounded-xl absolute right-0 shadow-[inset_0_0_40px_100px_#141414] overflow-hidden"
+                  />
+               </div>
+               
 
                <text className="text-center text-4xl">{dataProject.subTitle2}</text>
 

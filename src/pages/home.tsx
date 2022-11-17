@@ -112,9 +112,13 @@ export default function Home() {
                delay-200 duration-1000`
             }>
 
-               <div className="absolute w-[90%] h-[45%] sm:h-[60%] sm:w-[60%] sm:top-[35%] z-10 blur bg-orange-500/30" 
-                  style={{borderRadius:'30% 70% 42% 58% / 67% 28% 72% 33%' }}
-               ></div>
+               <div className="absolute w-[90%] h-[60%] sm:h-[60%] sm:w-[60%] sm:top-[35%] z-10 blur-sm flex justify-center items-center bg-orange-500/30
+                  rounded-[30%_70%_42%_58%_/_67%_28%_72%_33%] animate-[bgDistorcao_12s_ease_infinite]
+               " 
+               
+               >
+                  <img src="BG-Home.svg" className="w-44"/>
+               </div>
 
                {  (open) && (
                   (data.projects != null) ? (
