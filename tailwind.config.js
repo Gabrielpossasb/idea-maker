@@ -27,6 +27,10 @@ module.exports = {
           '25%': { borderRadius: '50% 50% 67% 33% / 64% 11% 89% 36%' },
           '50%': { borderRadius: '16% 84% 21% 79% / 48% 16% 84% 52% ' },
           '75%': { borderRadius: '60% 40% 38% 62% / 56% 79% 21% 44% ' },
+        },
+        pincelRotate: {
+          '0%, 100%': { left: '0px' },
+          '50%': { marginLeft: '6rem', transform: 'rotate(270deg)' }
         }
       }
     },

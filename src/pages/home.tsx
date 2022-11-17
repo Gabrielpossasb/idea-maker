@@ -113,7 +113,7 @@ export default function Home() {
             }>
 
                <div className="absolute w-[90%] h-[60%] sm:h-[60%] sm:w-[60%] sm:top-[35%] z-10 blur-sm flex justify-center items-center bg-orange-500/30
-                  rounded-[30%_70%_42%_58%_/_67%_28%_72%_33%] animate-[bgDistorcao_12s_ease_infinite]
+                  rounded-[30%_70%_42%_58%_/_67%_28%_72%_33%] animate-[bgDistorcao_12s_ease-in-out_infinite]
                " 
                
                >
