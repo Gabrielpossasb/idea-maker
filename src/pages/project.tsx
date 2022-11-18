@@ -35,7 +35,7 @@ export default function Project() {
             <div className="flex items-center flex-col w-full max-w-5xl gap-12">
                <text className="p-4 text-center font-bold text-5xl">{dataProject.title}</text>
                
-               <div className="flex flex-col items-center gap-8 relative w-full rounded-2xl bg-[#1b1b1b] p-1 shadow-[0_0_20px_30px_#1b1b1b]">
+               <div className="flex flex-col items-center gap-8 relative w-full rounded-2xl bg-[#1b1b1b8a] p-8 shadow-[0_0_20px_10px_#1b1b1b8a]">
                <text  className="text-center relative z-10 bg-transparent">{dataProject.description1}</text>
                  
                   <img src={dataProject.img1} alt={'Image Intouction'} className="bg-gray-700 max-w-full sm:max-w-3xl rounded-md border border-gray-500"/>

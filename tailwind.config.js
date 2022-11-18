@@ -29,8 +29,9 @@ module.exports = {
           '75%': { borderRadius: '60% 40% 38% 62% / 56% 79% 21% 44% ' },
         },
         pincelRotate: {
-          '0%, 100%': { left: '0px' },
-          '50%': { marginLeft: '6rem', transform: 'rotate(270deg)' }
+          '0%, 100%': { marginLeft: 0 },
+          '20%': { transform: 'rotate(-120deg)', marginLeft: 0 },
+          '60%': { marginLeft: '6rem', transform: 'rotate(250deg)' }
         }
       }
     },

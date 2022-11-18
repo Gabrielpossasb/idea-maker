@@ -13,7 +13,7 @@ export function CustomizeColor({project, setBg, setText}: CustomizeColorProps) {
 
    return (
       <div className={`fixed left-2 sm:left-10 flex flex-col gap-4 items-center`}>
-         <button className={`bg-gray-50 p-2 rounded-full hover:p-3 text-orange-500 duration-500 transition-all shadow-xl ${open ? 'animate-[pincelRotate_2s_ease_1] p-3 bg-orange-200': ''}`} onClick={() => setOpen(!open)}>
+         <button className={`bg-gray-50 p-2 rounded-full hover:opacity-100 hover:p-3 hover:rotate-[25deg] text-orange-500 duration-300 transition-all shadow-xl ${open ? 'animate-[pincelRotate_2s_ease_1] p-3 bg-orange-200': 'opacity-50'}`} onClick={() => setOpen(!open)}>
             <IoBrush size={32} />
          </button>
         

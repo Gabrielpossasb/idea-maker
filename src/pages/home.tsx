@@ -107,18 +107,14 @@ export default function Home() {
                   </div>
                )}
             </div>
-
+            <div className="absolute left-[5%] sm:left-[20%] w-[90%] h-[60%] sm:h-[60%] sm:w-[60%] mt-16 z-10 blur-sm flex justify-center items-center bg-orange-500/30
+               rounded-[30%_70%_42%_58%_/_67%_28%_72%_33%] animate-[bgDistorcao_12s_ease-in-out_infinite]" 
+            >
+               <img src="BG-Home.svg" className="w-44"/>
+            </div>
             <div className={`flex flex-col pt-16 items-center text-lg gap-4 ${open?'opacity-100':'opacity-0'} 
                delay-200 duration-1000`
             }>
-
-               <div className="absolute w-[90%] h-[60%] sm:h-[60%] sm:w-[60%] sm:top-[35%] z-10 blur-sm flex justify-center items-center bg-orange-500/30
-                  rounded-[30%_70%_42%_58%_/_67%_28%_72%_33%] animate-[bgDistorcao_12s_ease-in-out_infinite]
-               " 
-               
-               >
-                  <img src="BG-Home.svg" className="w-44"/>
-               </div>
 
                {  (open) && (
                   (data.projects != null) ? (
@@ -138,7 +134,6 @@ export default function Home() {
                               </button>
                            </Link>
 
-                           
                            <div className="flex items-center gap-4 justify-between sm:gap-10 "> 
                               <text className="text-xl"> 
                                  <span className="mr-1 text-sm font-medium text-orange-300/80"> atualizado: </span>
@@ -154,7 +149,7 @@ export default function Home() {
                               )}
 
                               <button  onClick={() => deleteProject(ass.id)}
-                                 className="hover:text-orange-400 hover:animate-spin duration-500 rounded-full hover:bg-orange-100 p-2"
+                                 className="hover:text-orange-400 hover:rotate-[25deg] duration-500 rounded-full hover:bg-orange-100 p-2"
                               >
                                  <FiTrash2 size={26}/>
                               </button>
