@@ -13,6 +13,7 @@
 
 - Next
 - Vercel
+- Figma
 
 ## :rocket: Bibliotecas :
 
@@ -21,7 +22,6 @@
 - HTML
 - TailwindCSS
 - Firebase
-- Figma
 - React-Responsive
 - React-Icons
 - React-Textarea-Autosize
