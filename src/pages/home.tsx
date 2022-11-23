@@ -49,7 +49,7 @@ export default function Home() {
          subTitle2: 'Text Example',
          description2: 'Text Example',
          bgColor: '#252525',
-         textColor: '#2177f8',
+         textColor: '#e36d0d',
          img1: defaultImage,
          img2: defaultImage,
       })
@@ -102,6 +102,7 @@ export default function Home() {
                { addDoc && (
                   <div className={`flex items-center gap-4 duration-500 transition-all delay-200 ${addDoc ? 'opacity-100' : 'opacity-0'}`}>
                      <input autoFocus className={`p-1 px-3 w-max ml-8 sm:ml-2 max-w-[400px] outline-none bg-gray-50 rounded-lg border-2 border-red-600 border-opacity-60 ${newProject != '' ? 'border-green-700' : ''}`} value={newProject} onChange={(e) => setNewProject(e.target.value)}/>
+                     
                      <button className="p-1 rounded-full shadow-orangelg hover:shadow-orangeButton text-gray-500 top-0 hover:-top-1
                      left-0 hover:left-1 duration-500 relative" onClick={() => {setaddDoc(false), setNewProject('')}}> <FiX size={26}/></button>
                   </div>
@@ -112,48 +113,50 @@ export default function Home() {
             >
                <img src="BG-Home.svg" className="w-44"/>
             </div>
-            <div className={`flex flex-col pt-16 items-center text-lg gap-4 ${open?'opacity-100':'opacity-0'} 
-               delay-200 duration-1000`
+            <div className={`flex flex-col pt-16 z-20 items-center text-lg gap-4 transition-opacity ${open?'opacity-100':'opacity-0'} 
+               duration-1000`
             }>
 
                {  (open) && (
                   (data.projects != null) ? (
                      data.projects.map((ass) => (
                         <div key={ass.id}
-                           className={`p-2 px-6 w-full sm:flex group flex-wrap justify-between items-center max-w-4xl shadow-orangelg ml-0 z-20 bg-gray-50 border-x-4 
+                           className={`p-2 px-6 w-full flex-wrap sm:flex group justify-between items-center max-w-4xl shadow-orangelg ml-0 bg-gray-50 border-x-4 
                            hover:border-orange-400 font-medium rounded-lg transition-all duration-500 hover:ml-1`}
                            style={{}}
                         >
                            
-                           <Link  href={{
-                              pathname:"dashboard",
-                              query: { slug: ass.id, email: data.id },   
-                           }}>
-                              <button className={`group-hover:text-orange-600 font-semibold group-hover:animate-pulse duration-300`}>
-                                 {ass.name}  
-                              </button>
-                           </Link>
-
-                           <div className="flex items-center gap-4 justify-between sm:gap-10 "> 
-                              <text className="text-xl"> 
-                                 <span className="mr-1 text-sm font-medium text-orange-300/80"> atualizado: </span>
-                                 { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
-                                 <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
-                              </text>
-                              
-                              { isMobile && (
-                                 <>
-                                    -
-                                    <text className="font-medium text-base"> { ass.createdAt?.toDate().toLocaleDateString('pt-Br') } </text>
-                                 </>
-                              )}
-
-                              <button  onClick={() => deleteProject(ass.id)}
-                                 className="hover:text-orange-400 hover:rotate-[25deg] duration-500 rounded-full hover:bg-orange-100 p-2"
-                              >
-                                 <FiTrash2 size={26}/>
-                              </button>
+                           <div className={`group-hover:text-orange-600 w-full rounded-xl sm:w-[45%] overflow-x-auto font-semibold group-hover:animate-pulse duration-300
+                              scrollbar-thumb-rounded-md scrollbar-track-rounded-md scrollbar-track-slate-500/20 scrollbar-thumb-gray-700/60 scrollbar-corner-amber-800 scrollbar-thin
+                           `}>
+                              <Link  href={{
+                                 pathname:"dashboard",
+                                 query: { slug: ass.id, email: data.id },   
+                              }}>
+                                 <button className="rounded-xl hover:bg-orange-600/10 p-1 px-2">
+                                    {ass.name}  
+                                 </button>
+                              </Link>
                            </div>
+
+                           <text className="text-xl"> 
+                              <span className="mr-1 text-sm font-medium text-orange-300/80"> atualizado: </span>
+                              { ass.updatedAt?.toDate().toLocaleTimeString('pt-Br', { timeZone: 'America/Campo_Grande', timeStyle: 'short' }) }
+                              <span className="font-medium text-sm"> - { ass.updatedAt?.toDate().toLocaleDateString('pt-Br') } </span>
+                           </text>
+                           
+                           { isMobile && (
+                              <>
+                                 -
+                                 <text className="font-medium text-base"> { ass.createdAt?.toDate().toLocaleDateString('pt-Br') } </text>
+                              </>
+                           )}
+
+                           <button  onClick={() => deleteProject(ass.id)}
+                              className="hover:text-orange-400 ml-16 sm:ml-0 hover:rotate-[25deg] duration-500 rounded-full hover:bg-orange-100 p-2"
+                           >
+                              <FiTrash2 size={26}/>
+                           </button>
                         </div>
                      ))
                      ) : (
