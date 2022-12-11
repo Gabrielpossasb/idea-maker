@@ -26,3 +26,9 @@
 - React-Icons
 - React-Textarea-Autosize
 - React-Hook-Form
+
+## Alert :
+
+- Para acessar a plataforma é necessário um login:
+- Email: gabrielpossas2014@gmail.com
+- Senha: @Teste123
