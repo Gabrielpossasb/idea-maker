@@ -2,7 +2,7 @@
 
    <img height='140px' src='./public/Logo-git.svg' alt='logo para github'/>
       
-   #### Uma aplicação para criar uma apresentações com modelos pré-montados. ####
+   #### Uma aplicação que cria apresentações pré-personalizadas, apenas alerando as informações. ####
 
    :link: <https://idea-maker.vercel.app/home> :link:
    
